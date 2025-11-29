@@ -70,7 +70,16 @@ function App() {
     }
 
     function minus(id){
-        console.log(id)
+        const newSelectedPokemons =selectedPokemons.map((spf)=>{
+            if(Number.parseInt(spf.id)===Number.parseInt(id)){
+                spf.count=spf.count-1;
+                return spf;
+            }
+        });
+        setSelectedPokemons(newSelectedPokemons);
+        console.log(newSelectedPokemons)
+        let totalCount = newSelectedPokemons.reduce((total,sp)=>total-sp.count,0)
+        setCount(totalCount)
     }
 
     return (
