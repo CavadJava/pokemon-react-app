@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import Pokemon from "./components/Pokemon";
+import SelectedPokemon from "./components/SelectedPokemon.jsx";
 
 function App() {
 
@@ -17,6 +18,8 @@ function App() {
     ]
 
     const [pokemonsList, setPokemonList] = React.useState(pokemons)
+    const [selectedPokemons,setSelectedPokemons] = React.useState([]);
+    const [count,setCount] = useState(0)
 
     const divStyle = {
         backgroundColor: "#84ccd8",
@@ -45,15 +48,29 @@ function App() {
             return pokemon;
         })
         setPokemonList(pokemonsList);
-
+        setSelectedPokemons(pokemonsList.filter((pk)=>{return pk.count>0}))
+        let spTotalCount = 0;
+        selectedPokemons.forEach(sp=>{
+            spTotalCount+=sp.count;
+        })
+        setCount(spTotalCount);
     }
 
     function plus(id){
-
+        const newSelectedPokemons =selectedPokemons.map((spf)=>{
+                if(Number.parseInt(spf.id)===Number.parseInt(id)){
+                    spf.count=spf.count+1;
+                    return spf;
+                }
+            });
+        setSelectedPokemons(newSelectedPokemons);
+        console.log(newSelectedPokemons)
+        let totalCount = newSelectedPokemons.reduce((total,sp)=>total+sp.count,0)
+        setCount(totalCount)
     }
 
     function minus(id){
-
+        console.log(id)
     }
 
     return (
@@ -66,6 +83,13 @@ function App() {
                         ))
                     }
                 </div>
+
+                <div style={{textAlign: "center"}}>Your Pokemon Team: {count}</div>
+                {
+                    selectedPokemons.map((mp) => (
+                        <SelectedPokemon key={mp.id} {...mp} plusAction={plus} minusAction={minus}/>
+                    ))
+                }
             </div>
         </>
     )
