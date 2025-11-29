@@ -1,45 +1,26 @@
+import React from "react";
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.css'
-function Pokemon({ id, name }){
-
-    if(id.toString().length==2) {
-        id = "0" + id;
-    }else if(id.toString().length==1){
-        id = "00"+id;
-    }
-
-    const pokemonStyle = {
-        backgroundColor: "#d4e6d9",
-        margin: "10px" ,
-        padding: "10px",
-        borderRadius: "10px",
-        maxWidth: "300px",
-        height: "200px",
-        textAlign: "center"
-    }
-
-    return (
-        <div key={id} style={pokemonStyle}>
-            <img style={{width: "100px",height: "100px"}} src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${id}.png`}/>
-            <p>{name}</p>
-            <button className="btn btn-primary">Add to Team</button>
-        </div>
-    )
-}
-
-function Team() {
-    return (
-        <div>
-            <h1>Team</h1>
-        </div>
-    )
-}
+import Pokemon from "./components/Pokemon";
 
 function App() {
 
+    const pokemons = [
+        {"id": "4", "name": "Charmander", "type": "fire", "count": 0},
+        {"id": "7", "name": "Squirtle", "type": "water", "count": 0},
+        {"id": "11", "name": "Metapod", "type": "bug", "count": 0},
+        {"id": "12", "name": "Butterfree", "type": "flying", "count": 0},
+        {"id": "25", "name": "Pikachu", "type": "electric", "count": 0},
+        {"id": "39", "name": "Jigglypuff", "type": "normal", "count": 0},
+        {"id": "94", "name": "Gengar", "type": "poison", "count": 0},
+        {"id": "133", "name": "Eevee", "type": "normal", "count": 0}
+    ]
+
+    const [pokemonsList, setPokemonList] = React.useState(pokemons)
+
     const divStyle = {
         backgroundColor: "#84ccd8",
-        margin: "10px auto" ,
+        margin: "10px auto",
         padding: "10px",
         borderRadius: "10px",
         maxWidth: "1000px",
@@ -52,43 +33,42 @@ function App() {
         justifyContent: "space-between",
         alignItems: "center"
     }
-    const pokemons = [
-        { "id": 4, "name": "Charmander", "type": "fire" },
-        { "id": 7, "name": "Squirtle", "type": "water"},
-        { "id": 11, "name": "Metapod", "type": "bug"},
-        { "id": 12, "name": "Butterfree", "type": "flying", },
-        { "id": 25, "name": "Pikachu", "type": "electric", },
-        { "id": 39, "name": "Jigglypuff", "type": "normal", },
-        { "id": 94, "name": "Gengar", "type": "poison", },
-        { "id": 133, "name": "Eevee", "type": "normal" }
-    ]
-  return (
-    <>
-      <div style={divStyle}>
-          <div style={pokemonStyle}>
-              {
-                  pokemons.map((pok) => (
-                    <Pokemon key={pok.id} {...pok}/>
-                  ))
-              }
-          </div>
-          <div style={{textAlign: "center"}}>Your Pokemon Team</div>
 
-          <div className="first-result" style={{display:"flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center",backgroundColor: "#d4e6d9",borderRadius: "10px",padding: "10px",margin: "10px"}}>
-              <div className="pokemon-team">
-                  <img style={{width: "50px",height: "50px"}} src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/004.png`}/>
-                  <span>Charmander</span>
-              </div>
-              <div className="button-groups" style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center",gap: "10px"}}>
-                  <button className="btn btn-warning" style={{color:"#FFF"}}>-</button>
-                  <span>1</span>
-                  <button className="btn btn-success">+</button>
-                  <button className="btn btn-danger">Remove</button>
-              </div>
-          </div>
-      </div>
-    </>
-  )
+
+    function AddTeam(id){
+        pokemonsList.map(pokemon => {
+            if (Number.parseInt(pokemon.id) === Number.parseInt(id)) {
+                // Ensure count doesn't drop below zero
+                pokemon.count = Math.max(0, pokemon.count + 1);
+                return pokemon;
+            }
+            return pokemon;
+        })
+        setPokemonList(pokemonsList);
+
+    }
+
+    function plus(id){
+
+    }
+
+    function minus(id){
+
+    }
+
+    return (
+        <>
+            <div style={divStyle}>
+                <div style={pokemonStyle}>
+                    {
+                        pokemonsList.map((pok) => (
+                            <Pokemon key={pok.id} {...pok} AddTeam={AddTeam}/>
+                        ))
+                    }
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default App
