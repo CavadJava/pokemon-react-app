@@ -3,6 +3,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import Pokemon from "./components/Pokemon";
 import SelectedPokemon from "./components/SelectedPokemon.jsx";
+import TablePokemon from "./components/TablePokemon.jsx";
 
 function App() {
 
@@ -70,16 +71,16 @@ function App() {
     }
 
     function minus(id, currentCount){
+        if(currentCount===0)return;
         const newSelectedPokemons=selectedPokemons.map((spf)=>{
             if(Number.parseInt(spf.id)===Number.parseInt(id)){
                 spf.count=spf.count-1;
                 return spf;
             }
         });
-        if(currentCount===1)return;
         setSelectedPokemons(newSelectedPokemons);
         console.log(newSelectedPokemons)
-        let totalCount = newSelectedPokemons.reduce((total,sp)=>total-sp.count,0)
+        let totalCount = newSelectedPokemons.reduce((total,sp)=>total+sp.count,0)
         setCount(totalCount)
     }
 
@@ -94,12 +95,31 @@ function App() {
                     }
                 </div>
 
-                <div style={{textAlign: "center",diplay: count===0 ? 'block':'none'}}>Your Pokemon Team: {count}</div>
+                <div style={{textAlign: "center",diplay: count===1 ? 'block':'none'}}>Your Pokemon Team</div>
                 {
                     selectedPokemons.map((mp) => (
                         <SelectedPokemon key={mp.id} {...mp} plusAction={plus} minusAction={minus}/>
                     ))
                 }
+                <div style={{textAlign: "center",diplay: count===1 ? 'block':'none'}}>Total Pokémon in Team: {count}</div>
+                <div style={{textAlign: "center",diplay: count===1 ? 'block':'none'}}>Individual Pokémon Count</div>
+
+                    <table className="table">
+                        <thead>
+                        <tr>
+                            <th>Nickname</th>
+                            <th>Count</th>
+                            <th>Label</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            selectedPokemons.map((sp)=>{
+                                <TablePokemon key={sp.id} {...sp} />
+                            })
+                        }
+                        </tbody>
+                    </table>
             </div>
         </>
     )
