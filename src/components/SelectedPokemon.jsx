@@ -1,6 +1,6 @@
 import React from "react";
 
-function SelectedPokemon({id, name, count, plusAction, minusAction}){
+function SelectedPokemon({id, keyId, name, count, plusAction, minusAction}){
     const firstStyle = {
         display: "flex",
         flexDirection: "row",
@@ -22,18 +22,12 @@ function SelectedPokemon({id, name, count, plusAction, minusAction}){
         return null;
     }
 
-    if (id.toString().length === 2) {
-        id = "0" + id;
-    } else if (id.toString().length === 1) {
-        id = "00" + id;
-    }
-
     return(
         <>
             <div className="first-result" style={firstStyle}>
                 <div className="pokemon-team">
                     <img style={{width: "50px", height: "50px"}}
-                         src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${id}.png`}/>
+                         src={`https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${keyId}.png`}/>
                     <span>{name}</span>
                 </div>
                 <div className="button-groups" style={groupStyle}>

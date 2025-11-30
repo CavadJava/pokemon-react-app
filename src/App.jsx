@@ -1,22 +1,23 @@
 import React, {useState} from "react";
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import Pokemon from "./components/Pokemon";
 import SelectedPokemon from "./components/SelectedPokemon.jsx";
 import TablePokemon from "./components/TablePokemon.jsx";
+import PokemonDetail from "./components/PokemonDetail.jsx";
 
 function App() {
 
     const pokemons = [
-        {"id": "4", "name": "Charmander", "type": "fire", "count": 0},
-        {"id": "7", "name": "Squirtle", "type": "water", "count": 0},
-        {"id": "11", "name": "Metapod", "type": "bug", "count": 0},
-        {"id": "12", "name": "Butterfree", "type": "flying", "count": 0},
-        {"id": "25", "name": "Pikachu", "type": "electric", "count": 0},
-        {"id": "39", "name": "Jigglypuff", "type": "normal", "count": 0},
-        {"id": "94", "name": "Gengar", "type": "poison", "count": 0},
-        {"id": "133", "name": "Eevee", "type": "normal", "count": 0}
+        {"id": "4", "name": "Charmander", "type": "fire", "count": 0,"keyId":"004"},
+        {"id": "7", "name": "Squirtle", "type": "water", "count": 0,"keyId":"007"},
+        {"id": "11", "name": "Metapod", "type": "bug", "count": 0,"keyId":"011"},
+        {"id": "12", "name": "Butterfree", "type": "flying", "count": 0,"keyId":"012"},
+        {"id": "25", "name": "Pikachu", "type": "electric", "count": 0,"keyId":"025"},
+        {"id": "39", "name": "Jigglypuff", "type": "normal", "count": 0,"keyId":"039"},
+        {"id": "94", "name": "Gengar", "type": "poison", "count": 0,"keyId":"094"},
+        {"id": "133", "name": "Eevee", "type": "normal", "count": 0,"keyId":"133"}
     ]
+
 
     const [pokemonsList, setPokemonList] = React.useState(pokemons)
     const [selectedPokemons,setSelectedPokemons] = React.useState([]);
@@ -47,7 +48,7 @@ function App() {
                 return pokemon;
             }
             return pokemon;
-        })
+        });
         setPokemonList(pokemonsList);
         setSelectedPokemons(pokemonsList.filter((pk)=>{return pk.count>0}))
         let spTotalCount = 0;
@@ -58,29 +59,26 @@ function App() {
     }
 
     function plus(id){
-        const newSelectedPokemons =selectedPokemons.map((spf)=>{
-                if(Number.parseInt(spf.id)===Number.parseInt(id)){
+        selectedPokemons.map((spf)=>{
+                if(spf!=undefined && spf.id===id){
                     spf.count=spf.count+1;
-                    return spf;
                 }
             });
-        setSelectedPokemons(newSelectedPokemons);
-        console.log(newSelectedPokemons)
-        let totalCount = newSelectedPokemons.reduce((total,sp)=>total+sp.count,0)
+        setSelectedPokemons(selectedPokemons);
+        let totalCount = selectedPokemons.reduce((total,sp)=>total+sp.count,0)
         setCount(totalCount===0?0:totalCount)
     }
 
     function minus(id, currentCount){
         if(currentCount===0)return;
-        const newSelectedPokemons=selectedPokemons.map((spf)=>{
-            if(Number.parseInt(spf.id)===Number.parseInt(id)){
+        selectedPokemons.map((spf)=>{
+            if(spf!=undefined && spf.id===id){
                 spf.count=spf.count-1;
                 return spf;
             }
         });
-        setSelectedPokemons(newSelectedPokemons);
-        console.log(newSelectedPokemons)
-        let totalCount = newSelectedPokemons.reduce((total,sp)=>total+sp.count,0)
+        setSelectedPokemons(selectedPokemons);
+        let totalCount = selectedPokemons.reduce((total,sp)=>total+sp.count,0)
         setCount(totalCount)
     }
 
@@ -90,7 +88,7 @@ function App() {
                 <div style={pokemonStyle}>
                     {
                         pokemonsList.map((pok) => (
-                            <Pokemon key={pok.id} {...pok} AddTeam={AddTeam}/>
+                            <PokemonDetail key={pok.id+pok.name} {...pok} AddTeam={AddTeam}/>
                         ))
                     }
                 </div>
@@ -98,7 +96,7 @@ function App() {
                 <div style={{textAlign: "center",diplay: count===1 ? 'block':'none'}}>Your Pokemon Team</div>
                 {
                     selectedPokemons.map((mp) => (
-                        <SelectedPokemon key={mp.id} {...mp} plusAction={plus} minusAction={minus}/>
+                        <SelectedPokemon key={mp.id+mp.name} {...mp} plusAction={plus} minusAction={minus}/>
                     ))
                 }
                 <div style={{textAlign: "center",diplay: count===1 ? 'block':'none'}}>Total Pokémon in Team: {count}</div>
@@ -115,7 +113,7 @@ function App() {
                         <tbody>
                         {
                             selectedPokemons.map((sp)=>{
-                                <TablePokemon key={sp.id} {...sp} />
+                                <TablePokemon key={sp.id+sp.name} {...sp} />
                             })
                         }
                         </tbody>
