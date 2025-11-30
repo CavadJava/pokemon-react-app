@@ -38,11 +38,11 @@ function SelectedPokemon({id, name, count, plusAction, minusAction}){
                 </div>
                 <div className="button-groups" style={groupStyle}>
                     <button className="btn btn-warning" style={{color: "#FFF"}} onClick={() => {
-                        minusAction(id)
+                        minusAction(id,count)
                     }}>-</button>
                     <span>{count}</span>
                     <button className="btn btn-success" onClick={() => {
-                        plusAction(id)
+                        plusAction(id,count)
                     }}>+</button>
                     <button className="btn btn-danger">Remove</button>
                 </div>

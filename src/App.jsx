@@ -66,16 +66,17 @@ function App() {
         setSelectedPokemons(newSelectedPokemons);
         console.log(newSelectedPokemons)
         let totalCount = newSelectedPokemons.reduce((total,sp)=>total+sp.count,0)
-        setCount(totalCount)
+        setCount(totalCount===0?0:totalCount)
     }
 
-    function minus(id){
-        const newSelectedPokemons =selectedPokemons.map((spf)=>{
+    function minus(id, currentCount){
+        const newSelectedPokemons=selectedPokemons.map((spf)=>{
             if(Number.parseInt(spf.id)===Number.parseInt(id)){
                 spf.count=spf.count-1;
                 return spf;
             }
         });
+        if(currentCount===1)return;
         setSelectedPokemons(newSelectedPokemons);
         console.log(newSelectedPokemons)
         let totalCount = newSelectedPokemons.reduce((total,sp)=>total-sp.count,0)
@@ -93,7 +94,7 @@ function App() {
                     }
                 </div>
 
-                <div style={{textAlign: "center"}}>Your Pokemon Team: {count}</div>
+                <div style={{textAlign: "center",diplay: count===0 ? 'block':'none'}}>Your Pokemon Team: {count}</div>
                 {
                     selectedPokemons.map((mp) => (
                         <SelectedPokemon key={mp.id} {...mp} plusAction={plus} minusAction={minus}/>
