@@ -4,8 +4,8 @@ function TablePokemon({id, name, count, label}) {
     return(
         <>
             <tr key={id+name}>
-                <td>{name}</td>
-                <td>{count}</td>
+                <td style={{color:"green"}}>{name}</td>
+                <td style={{color:"red"}}>{count}</td>
                 <td>{label}</td>
             </tr>
         </>
