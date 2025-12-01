@@ -1,6 +1,6 @@
 import React from "react";
 
-function SelectedPokemon({id, keyId, name, count, plusAction, minusAction}){
+function SelectedPokemon({id, keyId, name, count, plusAction, minusAction, removeAction}){
     const firstStyle = {
         display: "flex",
         flexDirection: "row",
@@ -14,6 +14,7 @@ function SelectedPokemon({id, keyId, name, count, plusAction, minusAction}){
     const groupStyle = {
         display: "flex",
         flexDirection: "row",
+        gap:20,
         justifyContent: "space-between",
         alignItems: "center"
     }
@@ -38,7 +39,9 @@ function SelectedPokemon({id, keyId, name, count, plusAction, minusAction}){
                     <button className="btn btn-success" onClick={() => {
                         plusAction(id,count)
                     }}>+</button>
-                    <button className="btn btn-danger">Remove</button>
+                    <button className="btn btn-danger" onClick={()=>{
+                        removeAction(id)
+                    }}>Remove</button>
                 </div>
             </div>
         </>
