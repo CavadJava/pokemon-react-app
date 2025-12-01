@@ -11,11 +11,12 @@ function PokemonDetail({id, keyId, name, AddTeam}) {
     const pokemonStyle = {
         backgroundColor: "#d4e6d9",
         margin: "10px",
-        padding: "10px",
         borderRadius: "10px",
         maxWidth: "300px",
-        height: "200px",
-        textAlign: "center"
+        textAlign: "center",
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Hafif gölge
+        padding: "15px",
+        height: "100%" // Dış kapsayıcının yüksekliğini doldurur
     }
     return (
         <div key={id} style={pokemonStyle}>
