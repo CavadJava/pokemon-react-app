@@ -2,7 +2,6 @@ import React from "react";
 
 function PokemonDetail({id, keyId, name, AddTeam}) {
 
-    // If id is missing, handle it gracefully
     if (id === undefined || id === null) {
         console.error("Pokemon ID is missing.");
         return null;
@@ -14,9 +13,9 @@ function PokemonDetail({id, keyId, name, AddTeam}) {
         borderRadius: "10px",
         maxWidth: "300px",
         textAlign: "center",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Hafif gölge
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", 
         padding: "15px",
-        height: "100%" // Dış kapsayıcının yüksekliğini doldurur
+        height: "100%" 
     }
     return (
         <div key={id} style={pokemonStyle}>

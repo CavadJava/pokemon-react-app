@@ -117,11 +117,9 @@ function App() {
         <>
             <div style={divStyle}>
 
-                {/* Pokemon kartları mobil uyumlu hale getirildi */}
                 <div style={pokemonStyle}>
                     {
                         pokemonsList.map((pok) => (
-                            // Not: PokemonDetail bileşeninin içinde de genişliği (örneğin %48) ayarlamanız gerekebilir
                             <PokemonDetail key={pok.id+pok.name} {...pok} AddTeam={AddTeam}/>
                         ))
                     }
@@ -138,9 +136,7 @@ function App() {
                 <div style={visibilityStyle}>Total Pokémon in Team: {count}</div>
                 <div style={visibilityStyle}>Individual Pokémon Count</div>
 
-                {/* RESPONSIVE DÜZELTME: Tabloyu kapsayan bir div'e Bootstrap'in 'table-responsive' sınıfı eklendi. */}
                 <div className="table-responsive" style={{
-                    // Tabloyu sarmalayan div'e hafif bir gölge ve margin ekleyerek tablonun diğer öğelerden ayrılmasını sağlarız.
                     margin: "20px 0",
                     boxShadow: "0 2px 4px rgba(0,0,0,0.2)"
                 }}>

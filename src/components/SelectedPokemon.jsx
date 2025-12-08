@@ -19,7 +19,6 @@ function SelectedPokemon({id, keyId, name, count, plusAction, minusAction, remov
         alignItems: "center"
     }
     if (id === undefined || id === null) {
-        console.error("Pokemon ID is missing.");
         return null;
     }
 
